@@ -2,16 +2,23 @@
 
 A desktop terminal that looks like Ubuntu’s GNOME Terminal and runs a **Unix-style shell out of the box**. You do not need WSL, Git Bash, or an Ubuntu distro.
 
-On Windows it ships **BusyBox ash** plus **Git**. These work with no extra install:
+Everyday Linux basics work with no extra install:
 
 ```bash
 ls
 ll
+cp a.txt b.txt
+mv old.txt new.txt
+rm -rf folder/
 vim file.txt
 git clone https://github.com/example/repo.git
+helpme
+agents
 ```
 
-`vim` is BusyBox `vi` (simple, not full Vim). `git` is MinGit, so clone / pull / commit / push work. `apt` and Linux-only binaries are still not included.
+See **[WHAT-WORKS.md](WHAT-WORKS.md)** for the full list of what works and what does not.
+
+`vim` is BusyBox `vi` (simple, not full Vim). `git` is bundled MinGit. Terminal AI agents (Claude, Cursor, Codex, …) run here if you already installed those CLIs on Windows — type `agents` to check.
 
 ## Download
 

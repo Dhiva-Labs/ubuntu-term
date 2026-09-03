@@ -1,4 +1,4 @@
-# ubuntu-term-profile 2
+# ubuntu-term-profile 3
 export TERM="${TERM:-xterm-256color}"
 export COLORTERM="${COLORTERM:-truecolor}"
 export EDITOR="${EDITOR:-vi}"
@@ -7,6 +7,7 @@ export GIT_EDITOR="${GIT_EDITOR:-vi}"
 
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
+# Everyday Linux-style commands (BusyBox applets + aliases)
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -alF'
@@ -15,4 +16,52 @@ alias l='ls -CF'
 alias vim='vi'
 alias cls='clear'
 alias ..='cd ..'
+alias ...='cd ../..'
 alias ~='cd "$HOME"'
+
+# Quick help: type "helpme" or "whatworks"
+helpme() {
+  cat <<'EOF'
+Ubuntu Terminal — everyday Linux commands (no WSL needed)
+
+  Files:    ls  ll  la  cd  pwd  mkdir  cp  mv  rm  rm -rf  touch
+  View:     cat  head  tail  less  more  clear
+  Text:   grep  find  sed  awk  sort  uniq  wc
+  Edit:     vi  vim          (BusyBox vi — Esc, :w, :q, :wq)
+  Git:      git clone  git status  git add  git commit  git pull  git push
+  Agents:   agents           (lists AI CLIs if installed on Windows)
+
+  Docs:     see WHAT-WORKS.md in the project / release notes
+
+Type a normal Linux-style command and press Enter.
+EOF
+}
+alias whatworks='helpme'
+
+# Terminal AI / coding agent CLIs (use whatever is already on PATH)
+agents() {
+  cat <<'EOF'
+Terminal agents (run here if installed on Windows):
+EOF
+  for cmd in claude cursor-agent cursor aider codex gemini amp agent; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+      echo "  [ok] $cmd"
+    else
+      echo "  [--] $cmd"
+    fi
+  done
+  cat <<'EOF'
+
+Install examples (needs Node/npm on Windows):
+  npm i -g @anthropic-ai/claude-code
+  npm i -g @google/gemini-cli
+  npx -y @openai/codex
+
+Then reopen this terminal and run: agents
+EOF
+}
+
+# One-line tip on new interactive shells
+if [ -n "$PS1" ]; then
+  echo "Ubuntu Terminal ready — try: ls, ll, vim, git clone …  |  helpme for more"
+fi
