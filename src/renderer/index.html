@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self' data:"
+    />
+    <title>Ubuntu Terminal</title>
+    <link rel="stylesheet" href="../vendor/xterm.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="titlebar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span id="header-title">Terminal</span>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="btn-new" title="New tab (Ctrl+Shift+T)">+</button>
+      </div>
+    </header>
+    <nav class="tabs" id="tabs"></nav>
+    <main id="terminals"></main>
+    <script src="../vendor/xterm.js"></script>
+    <script src="../vendor/addon-fit.js"></script>
+    <script src="../vendor/addon-web-links.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

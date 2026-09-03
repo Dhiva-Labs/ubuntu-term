@@ -1,0 +1,143 @@
+:root {
+  --aubergine: #300a24;
+  --header: #2c001e;
+  --tab: #3c102e;
+  --tab-active: #300a24;
+  --text: #eeeeec;
+  --muted: #c4a000;
+  --accent: #e95420;
+  --green: #8ae234;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--aubergine);
+  color: var(--text);
+  font-family: "Ubuntu", "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.titlebar {
+  height: 36px;
+  background: linear-gradient(#4e1944, var(--header));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  -webkit-app-region: drag;
+  user-select: none;
+  border-bottom: 1px solid #1a0012;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px #77216f;
+}
+
+.header-actions {
+  -webkit-app-region: no-drag;
+  display: flex;
+  gap: 6px;
+}
+
+.header-actions button,
+.tab button {
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.header-actions button:hover,
+.tab button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: #1f0016;
+  min-height: 28px;
+  padding: 2px 4px 0;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--tab);
+  color: #d3d7cf;
+  border: 0;
+  border-radius: 6px 6px 0 0;
+  padding: 4px 8px 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  max-width: 220px;
+}
+
+.tab.active {
+  background: var(--tab-active);
+  color: #fff;
+}
+
+.tab span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab .close {
+  opacity: 0.65;
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+main {
+  flex: 1;
+  position: relative;
+  background: var(--aubergine);
+}
+
+.term-pane {
+  position: absolute;
+  inset: 8px;
+  display: none;
+}
+
+.term-pane.active {
+  display: block;
+}
+
+.xterm,
+.xterm-viewport {
+  background: var(--aubergine) !important;
+}
+
+.xterm-viewport {
+  overflow-y: auto !important;
+}
