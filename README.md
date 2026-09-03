@@ -4,6 +4,13 @@ A desktop terminal that looks and behaves like Ubuntu’s GNOME Terminal.
 
 On Windows it uses **WSL Ubuntu** if installed, otherwise **Git Bash**, otherwise PowerShell. On Linux it uses your login shell.
 
+## Download
+
+Windows x64 builds are on the [Releases](https://github.com/Dhiva-Labs/ubuntu-term/releases) page:
+
+- **Ubuntu Terminal Setup.exe** — installer (NSIS)
+- **Ubuntu Terminal*.exe** — portable, no install
+
 ## Run
 
 ```bash
@@ -11,7 +18,14 @@ npm install
 npm start
 ```
 
-## Windows installer
+## Download (Windows)
+
+Grab the latest `.exe` from [Releases](https://github.com/Dhiva-Labs/ubuntu-term/releases).
+
+- **Setup** installer if you want it in Start Menu
+- **Portable** `.exe` if you just want to run it
+
+## Build the Windows installer yourself
 
 From this folder on a Windows machine (or a Windows CI runner):
 
