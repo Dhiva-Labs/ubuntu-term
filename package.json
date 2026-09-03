@@ -9,7 +9,7 @@
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w node-pty",
     "postinstall": "electron-rebuild -f -w node-pty",
-    "dist:win": "electron-builder --win nsis portable --x64",
+    "dist:win": "electron-builder --win nsis portable --x64 --publish never",
     "dist:linux": "electron-builder --linux AppImage",
     "release": "electron-builder --win nsis portable --x64 --publish never"
   },
