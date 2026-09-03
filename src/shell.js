@@ -1,14 +1,6 @@
-const fs = require("fs");
 const os = require("os");
 const path = require("path");
-
-function exists(file) {
-  try {
-    return fs.existsSync(file);
-  } catch {
-    return false;
-  }
-}
+const { busyboxPath, exists, envForUnixShell } = require("./unix-runtime");
 
 function which(name) {
   const ext = process.platform === "win32" ? [".exe", ".cmd", ".bat", ""] : [""];
@@ -32,35 +24,55 @@ function gitBash() {
 }
 
 /**
- * Prefer a real Ubuntu/Linux shell. On Windows that is WSL, then Git Bash.
+ * On Windows, use the bundled Unix shell (BusyBox ash) so the app works
+ * without WSL. Git Bash is a fallback. PowerShell is last resort.
  */
 function resolveShell() {
   if (process.platform === "win32") {
-    const wsl = which("wsl");
-    if (wsl) {
+    const force = (process.env.UBUNTU_TERM_SHELL || "").toLowerCase();
+    if (force === "wsl") {
+      const wsl = which("wsl");
+      if (wsl) {
+        return {
+          file: wsl,
+          args: [],
+          cwd: os.homedir(),
+          label: "WSL",
+          fallbackArgs: ["-d", "Ubuntu"],
+          env: null,
+        };
+      }
+    }
+
+    const busybox = busyboxPath();
+    if (exists(busybox) && force !== "gitbash") {
       return {
-        file: wsl,
-        args: [],
+        file: busybox,
+        args: ["ash", "-i"],
         cwd: os.homedir(),
-        label: "Ubuntu (WSL)",
-        fallbackArgs: ["-d", "Ubuntu"],
+        label: "ash",
+        env: envForUnixShell(),
       };
     }
+
     const bash = gitBash();
     if (bash) {
       return {
         file: bash,
         args: ["--login", "-i"],
         cwd: os.homedir(),
-        label: "Git Bash",
+        label: "bash",
+        env: null,
       };
     }
+
     const pwsh = which("pwsh") || which("powershell");
     return {
       file: pwsh || "cmd.exe",
       args: [],
       cwd: os.homedir(),
       label: pwsh ? "PowerShell" : "Command Prompt",
+      env: null,
     };
   }
 
@@ -70,10 +82,12 @@ function resolveShell() {
     args: ["-l"],
     cwd: os.homedir(),
     label: path.basename(shell),
+    env: null,
   };
 }
 
-function envForPty() {
+function envForPty(chosen) {
+  if (chosen && chosen.env) return chosen.env;
   return {
     ...process.env,
     TERM: "xterm-256color",

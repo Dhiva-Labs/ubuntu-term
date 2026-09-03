@@ -1,40 +1,33 @@
 # Ubuntu Terminal (Windows)
 
-A desktop terminal that looks and behaves like Ubuntu’s GNOME Terminal.
+A desktop terminal that looks like Ubuntu’s GNOME Terminal and runs a **Unix-style shell out of the box**. You do not need WSL, Git Bash, or an Ubuntu distro.
 
-On Windows it uses **WSL Ubuntu** if installed, otherwise **Git Bash**, otherwise PowerShell. On Linux it uses your login shell.
+On Windows it ships **BusyBox ash** (`ls`, `grep`, `sed`, `awk`, `find`, `vi`, `wget`, pipes, and the usual `user@host:~$` prompt). On Linux it uses your login shell.
+
+This is a Unix toolkit on Windows, not a Linux kernel. Commands like `apt` and Linux-only binaries are not included.
 
 ## Download
 
-Windows x64 builds are on the [Releases](https://github.com/Dhiva-Labs/ubuntu-term/releases) page:
+Windows x64 builds: [Releases](https://github.com/Dhiva-Labs/ubuntu-term/releases)
 
-- **Ubuntu Terminal Setup.exe** — installer (NSIS)
-- **Ubuntu Terminal*.exe** — portable, no install
+- **Ubuntu Terminal-Setup-*.exe** — installer
+- **Ubuntu Terminal-Portable-*.exe** — no install
 
-## Run
+## Run from source
 
 ```bash
 npm install
 npm start
 ```
 
-## Download (Windows)
+## Build the Windows installer
 
-Grab the latest `.exe` from [Releases](https://github.com/Dhiva-Labs/ubuntu-term/releases).
-
-- **Setup** installer if you want it in Start Menu
-- **Portable** `.exe` if you just want to run it
-
-## Build the Windows installer yourself
-
-From this folder on a Windows machine (or a Windows CI runner):
+On Windows (or GitHub Actions):
 
 ```bash
 npm install
 npm run dist:win
 ```
-
-Installers land in `dist/` (`Ubuntu Terminal Setup.exe` and a portable `.exe`).
 
 ## Shortcuts (GNOME Terminal style)
 
@@ -45,5 +38,3 @@ Installers land in `dist/` (`Ubuntu Terminal Setup.exe` and a portable `.exe`).
 | Copy      | Ctrl+Shift+C    |
 | Paste     | Ctrl+Shift+V    |
 | Zoom      | Ctrl + / − / 0  |
-
-For a real Ubuntu userspace on Windows, install [WSL](https://learn.microsoft.com/windows/wsl/install) and the Ubuntu distro (`wsl --install -d Ubuntu`).

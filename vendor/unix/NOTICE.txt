@@ -1,0 +1,6 @@
+BusyBox for Windows (busybox-w32) is bundled so this app can run a Unix-style
+shell on Windows without WSL.
+
+Binary: https://frippery.org/busybox/
+Source: https://github.com/rmyorston/busybox-w32
+License: GPL-2.0 (same as BusyBox)

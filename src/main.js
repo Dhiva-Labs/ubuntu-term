@@ -6,7 +6,7 @@ const { resolveShell, envForPty } = require("./shell");
 
 const sessions = new Map();
 let win;
-const chosen = resolveShell();
+let chosen;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -29,7 +29,7 @@ function createWindow() {
 }
 
 function spawnSession(id, cols, rows) {
-  const env = envForPty();
+  const env = envForPty(chosen);
   let term;
   try {
     term = pty.spawn(chosen.file, chosen.args, {
@@ -196,7 +196,10 @@ ipcMain.on("app:open-external", (_e, url) => {
   if (typeof url === "string" && /^https?:\/\//i.test(url)) shell.openExternal(url);
 });
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  chosen = resolveShell();
+  createWindow();
+});
 
 app.on("window-all-closed", () => {
   for (const id of [...sessions.keys()]) killSession(id);
