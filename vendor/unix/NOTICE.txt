@@ -4,3 +4,8 @@ shell on Windows without WSL.
 Binary: https://frippery.org/busybox/
 Source: https://github.com/rmyorston/busybox-w32
 License: GPL-2.0 (same as BusyBox)
+
+Git for Windows MinGit is downloaded at build time and bundled with the app.
+
+https://github.com/git-for-windows/git
+License: GPL-2.0
