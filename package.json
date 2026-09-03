@@ -9,8 +9,9 @@
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w node-pty",
     "postinstall": "electron-rebuild -f -w node-pty",
-    "dist:win": "electron-builder --win nsis portable",
-    "dist:linux": "electron-builder --linux AppImage"
+    "dist:win": "electron-builder --win nsis portable --x64",
+    "dist:linux": "electron-builder --linux AppImage",
+    "release": "electron-builder --win nsis portable --x64 --publish never"
   },
   "dependencies": {
     "@xterm/addon-fit": "^0.10.0",
@@ -33,15 +34,29 @@
       "src/**/*",
       "package.json"
     ],
+    "asarUnpack": [
+      "node_modules/node-pty/**"
+    ],
     "win": {
+      "icon": "build/icon.ico",
       "target": [
-        "nsis",
-        "portable"
-      ]
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
     }
   }
 }
